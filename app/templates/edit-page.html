@@ -1,0 +1,16 @@
+{% extends "master.html" %}
+{% block content %}
+	<br/>
+	<br/>
+	<form action="{{ url_for('update_page') }}" method="POST">
+		<input type="hidden" name="id" value="{{ id }}"/>
+		<input type="text" name="title" value="{{ title }}"/>
+		<br/>
+		<br/>
+		<textarea cols="100" rows="15" name="content">
+			{{ content }}
+		</textarea>
+		<br/>
+		<input type="submit" class="btn btn-info" value="Submit"/>
+	</form>
+{% endblock %}

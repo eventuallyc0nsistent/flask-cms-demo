@@ -1,0 +1,13 @@
+{% extends "master.html" %}
+{% block content %}
+	<br/>
+	<br/>
+	<form action="{{ url_for('save_page') }}" method="POST">
+		<input placeholder="Enter title here.." type="text" name="title"/>
+		<br/>
+		<br/>
+		<textarea placeholder="Enter content here.." cols="100" rows="15" name="content"></textarea>
+		<br/>
+		<input type="submit" class="btn btn-info" value="Submit"/>
+	</form>
+{% endblock %}

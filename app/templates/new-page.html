@@ -6,8 +6,26 @@
 		<input placeholder="Enter title here.." type="text" name="title"/>
 		<br/>
 		<br/>
-		<textarea placeholder="Enter content here.." cols="100" rows="15" name="content"></textarea>
+
+		<!-- WYSIWYG editor -->
+		<div id="toolbar">
+		  <a class="label label-primary" data-wysihtml5-command="bold">bold</a>
+		  <a class="label label-primary" data-wysihtml5-command="italic">italic</a>
+		  <a class="label label-primary" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
+		  <a class="label label-primary" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
+		</div>
+		<textarea id="editor" rows="20", cols="100" name="content" data-placeholder="Enter content here..">
+		</textarea>
+
 		<br/>
 		<input type="submit" class="btn btn-info" value="Submit"/>
 	</form>
+
+	<script>
+	  var editor = new wysihtml5.Editor('editor', {
+	    toolbar: 'toolbar',
+	    parserRules:  wysihtml5ParserRules
+	  });
+	</script>
+
 {% endblock %}

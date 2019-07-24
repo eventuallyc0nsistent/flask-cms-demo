@@ -1,3 +1,4 @@
 *.pyc
 .editorconfig
 
+*.lnk

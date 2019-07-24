@@ -1,12 +1,15 @@
 import os
 from flask import Flask, render_template, redirect, request
-from flask.ext.sqlalchemy import SQLAlchemy
+# from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 # Flask app
 app = Flask(__name__)
 app.debug = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s/cms.db' % os.getcwd()
 db = SQLAlchemy(app)
+
 
 # SQLAlchemy models
 class Pages(db.Model):
@@ -30,16 +33,18 @@ def index():
     pages = db.session.query(Pages).all()
     return render_template('index.html', pages=pages)
 
+
 @app.route('/page/<int:page_id>')
 def view_page(page_id):
     page = db.session.query(Pages).filter_by(id=page_id).first()
-    return render_template('page.html', 
-                            id=page.id, title=page.title, content=page.content)
+    return render_template('page.html',
+                           id=page.id, title=page.title, content=page.content)
+
 
 @app.route('/edit-page/<int:page_id>')
 def edit_page(page_id):
     page = db.session.query(Pages).filter_by(id=page_id).first()
-    return render_template('edit-page.html', 
+    return render_template('edit-page.html',
                            id=page.id, title=page.title, content=page.content)
 
 
@@ -48,14 +53,16 @@ def update_page():
     page_id = request.form['id']
     title = request.form['title']
     content = request.form['content']
-    db.session.query(Pages).filter_by(id=page_id).update({'title': title, 
+    db.session.query(Pages).filter_by(id=page_id).update({'title': title,
                                                           'content': content})
     db.session.commit()
     return redirect('/page/'+page_id)
 
+
 @app.route('/new-page/')
 def new_page():
     return render_template('new-page.html')
+
 
 @app.route('/save-page/', methods=['POST'])
 def save_page():
@@ -65,9 +72,9 @@ def save_page():
     db.session.commit()
     return redirect('/page/%d' % page.id)
 
+
 @app.route('/delete-page/<int:page_id>')
 def delete_page(page_id):
     db.session.query(Pages).filter_by(id=page_id).delete()
     db.session.commit()
     return redirect('/')
-

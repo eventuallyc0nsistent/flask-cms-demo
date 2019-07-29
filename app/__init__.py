@@ -1,1 +1,1 @@
-from app.views import app
+from app.views import app, db

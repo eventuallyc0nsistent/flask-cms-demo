@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request
 # from flask.ext.sqlalchemy import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
+import re
 
 # Flask app
 app = Flask(__name__)
@@ -11,36 +12,47 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s/cms.db' % os.getcwd()
 db = SQLAlchemy(app)
 
 
-# SQLAlchemy models
 class Pages(db.Model):
     __tablename__ = 'pages'
 
     id = db.Column(db.Integer, primary_key=True)
+    slug = db.Column(db.String(1000))
     title = db.Column(db.String(1000))
     content = db.Column(db.BLOB)
 
     def __init__(self, title, content):
         self.title = title
+        self.slug = re.sub(r'[^\w]+', '-', title.lower())
         self.content = content
 
     def __repr__(self):
-        return '<Pages : id=%r, title=%s, content=%s>' \
-              % (self.id, self.title, self.content)
+        return '<Pages : id=%r, title=%s, slug=%s>' \
+              % (self.id, self.title, self.slug)
 
-# app views
+
+# Views that without login
 @app.route('/')
 def index():
     pages = db.session.query(Pages).all()
-    return render_template('index.html', pages=pages)
+    return render_template('index.html', pages=pages, title="home")
 
 
-@app.route('/page/<int:page_id>')
+@app.route('/test-db/')
+def test_db():
+    pages = db.session.query(Pages)
+    print("\n".join(repr(x) for x in pages))
+    return "success"
+
+
+@app.route('/post/<int:page_id>')
 def view_page(page_id):
     page = db.session.query(Pages).filter_by(id=page_id).first()
     return render_template('page.html',
                            id=page.id, title=page.title, content=page.content)
 
 
+"""
+# Views that require login
 @app.route('/edit-page/<int:page_id>')
 def edit_page(page_id):
     page = db.session.query(Pages).filter_by(id=page_id).first()
@@ -77,4 +89,6 @@ def save_page():
 def delete_page(page_id):
     db.session.query(Pages).filter_by(id=page_id).delete()
     db.session.commit()
-    return redirect('/')
+    return redirect('/news')
+
+"""

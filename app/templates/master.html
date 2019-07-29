@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{ title }}</title>
+	<title>BB:{{ title }}</title>
 	<script src="{{  url_for('static', filename='js/wysihtml.toolbar.min.js') }}"></script>
 	<script src="{{  url_for('static', filename='js/wysihtml.adv_ext.js') }}"></script>
-	<link rel="stylesheet" type="text/css" href="http://designmodo.github.io/Flat-UI/dist/css/vendor/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="http://designmodo.github.io/Flat-UI/dist/css/flat-ui.min.css">
-	</style>
+	<link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='mystyles.css') }}">
+	<link rel="shortcut icon" href="{{  url_for('static', filename='images/favicon.png') }}" />
 </head>
 <body>
 	<div class="container">
-	    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-          <a class="btn btn-info" href="/">Home</a>
-          <a class="btn btn-info" href="/blog">Blog</a>
-          <a class="btn btn-info" href="/about">About Us</a>
+        <nav>
+            <a href="/" id="logo"><img class="banner" src={{ url_for('static', filename='images/BB_logo.jpg') }}></a>
+            <!-- <a href="/contact">Contact</a> -->
+            <!-- <a href="/news">News</a> -->
+            <a href="https://www.facebook.com/Borthwick-Ballistics-237115003848341/" target=_blank id="facebook"><img class="fb-icon" src={{ url_for('static', filename='images/facebook_icon.svg') }}></a>
         </nav>
 		{% block content %}
 		{% endblock %}

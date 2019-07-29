@@ -1,8 +1,5 @@
 {% extends "master.html" %}
 {% block content %}
-	<h2>{{ title }} </h2>
-	<a href="{{ url_for('edit_page', page_id=id) }}"><small>Edit</small></a>&nbsp;&nbsp;&nbsp;&nbsp;
-	<a href="{{ url_for('delete_page', page_id=id) }}"><small>Delete</small></a>
-	<br/><br/>
+	<h2>{{ title }}</h2>
 	{{ content|safe }}
 {% endblock %}

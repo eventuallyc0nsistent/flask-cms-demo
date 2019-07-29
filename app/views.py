@@ -7,6 +7,11 @@ import re
 # Flask app
 app = Flask(__name__)
 app.debug = True
+
+if(app.debug):
+    from werkzeug.debug import DebuggedApplication
+    app.swgi_app = DebuggedApplication(app.wsgi_app, True)
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///%s/cms.db' % os.getcwd()
 db = SQLAlchemy(app)

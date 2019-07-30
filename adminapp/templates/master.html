@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>BB:{{ title }}</title>
+	<script src="{{  url_for('static', filename='js/wysihtml.toolbar.min.js') }}"></script>
+	<script src="{{  url_for('static', filename='js/wysihtml.adv_ext.js') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='mystyles.css') }}">
+	<link rel="shortcut icon" href="{{  url_for('static', filename='images/favicon1.png') }}" />
+</head>
+<body>
+	<div class="container">
+        <nav>
+            <a href="/" id="logo"><img class="banner" src={{ url_for('static', filename='images/BB_logo.jpg') }}></a>
+            <!-- <a href="/contact">Contact</a> -->
+            <!-- <a href="/news">News</a> -->
+            <a href="https://www.facebook.com/Borthwick-Ballistics-237115003848341/" target=_blank id="facebook"><img class="fb-icon" src={{ url_for('static', filename='images/facebook_icon.svg') }}></a>
+        </nav>
+		{% block content %}
+		{% endblock %}
+	</div>
+</body>
+</html>

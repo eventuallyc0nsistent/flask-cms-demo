@@ -1,0 +1,32 @@
+{% extends "master.html" %}
+{% block content %}
+	<br/>
+	<br/>
+	<form action="{{ url_for('save_page') }}" method="POST">
+		<input placeholder="Enter title here.." type="text" name="title"/>
+		<br/>
+		<br/>
+
+		<!-- WYSIWYG editor -->
+		<div id="toolbar">
+		  <!-- <a class="label label-primary" data-wysihtml5-command="bold">Bold</a> -->
+		  <a class="btn btn-info" data-wysihtml5-command="bold">Bold</a>
+		  <a class="btn btn-info" data-wysihtml5-command="italic">Italic</a>
+		  <a class="btn btn-info" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h3">Heading</a>
+		  <a class="btn btn-info" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">Paragraph</a>
+		</div>
+		<textarea id="editor" rows="20", cols="100" name="content" data-placeholder="Enter content here..">
+		</textarea>
+
+		<br/>
+		<input type="submit" class="btn btn-success" value="Submit"/>
+	</form>
+
+	<script>
+	  var editor = new wysihtml5.Editor('editor', {
+	    toolbar: 'toolbar',
+	    parserRules:  wysihtml5ParserRules
+	  });
+	</script>
+
+{% endblock %}

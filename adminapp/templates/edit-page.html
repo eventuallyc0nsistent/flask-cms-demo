@@ -1,0 +1,32 @@
+{% extends "master.html" %}
+{% block content %}
+	<br/>
+	<br/>
+	<form action="{{ url_for('update_page') }}" method="POST">
+		<input type="hidden" name="id" value="{{ id }}"/>
+		<input type="text" name="title" value="{{ title }}"/>
+		<br/>
+		<br/>
+		
+		<!-- WYSIWYG editor -->
+		<div id="toolbar">
+		  <a class="label label-primary" data-wysihtml5-command="bold">bold</a>
+		  <a class="label label-primary" data-wysihtml5-command="italic">italic</a>
+		  <a class="label label-primary" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h1">H1</a>
+		  <a class="label label-primary" data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">P</a>
+		</div>
+		<textarea id="editor" rows="20", cols="100" name="content" data-placeholder="Go on, start editing...">
+			{{ content|safe }}
+		</textarea>
+		<br/>
+		<input type="submit" class="btn btn-info" value="Submit"/>
+	</form>
+
+	<script>
+	  var editor = new wysihtml5.Editor('editor', {
+	    toolbar: 'toolbar',
+	    parserRules:  wysihtml5ParserRules
+	  });
+	</script>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "master.html" %}
+{% block content %}
+    <div class="entry-truncated">
+        <h3>Borthwick Ballistics is a gunsmith shop that is located in Sturgis MS.
+        We specialize in conservation and restoration of weapons from the 1850s 
+        to the 1970s. We do everything from basic cleanings to customizations.</h3>
+    
+        <h4>5352 Craig Springs Rd<br>
+        Sturgis, Mississippi</h4>
+    
+        <a href="mailto:borthwickballistics@gmail.com"><h4>borthwickballistics@gmail.com</h4></a>
+        <h4>(662) 251-1832</h4>
+    </div>
+    {% for page in pages %}
+    	<div class="entry-truncated">
+    		<a class="title-truncated" href="{{ url_for('view_page', page_id=page.id) }}">{{ page.title | safe | truncate(150) }}</a>
+    		<p>{{ page.content | safe | truncate(350) }}</p>
+		</div>
+    {% endfor %}
+
+{% endblock %}

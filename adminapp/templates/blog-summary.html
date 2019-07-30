@@ -1,0 +1,9 @@
+{% extends "master.html" %}
+{% block content %}
+	{% for page in pages %}
+    	<div class="entry-truncated">
+    		<a class="title-truncated" href="{{ url_for('view_page', page_id=page.id) }}">{{ page.title | safe | truncate(150) }}</a>
+    		<p>{{ page.content | safe | truncate(350) }}</p>
+		</div>
+	{% endfor %}
+{% endblock %}
